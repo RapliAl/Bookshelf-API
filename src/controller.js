@@ -73,10 +73,29 @@ export const getBooks = (req, res) => {
         })
     }
 
-    return res.status(500).json({
-        status: 'error',
+    return res.status(200).json({
+        status: 'success',
         data: {
             books: []
         }
+    })
+}
+
+export const detailBooks = (req, res) => {
+    const { id } = req.params;
+    const book = books.filter((book) => book.id === id)[0];
+
+    if (book !== undefined) {
+        return res.status(200).json({
+            status: 'success',
+            data: {
+                book: book
+            }
+        })
+    }
+
+    return res.status(404).json({
+        status: 'fail',
+        message: 'Buku tidak ditemukan'
     })
 }
